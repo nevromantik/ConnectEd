@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -10,6 +10,14 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, "Password is Required"],
+  },
+  name: {
+    type: String,
+    required: [true, "Name is Required"],
+  },
+  lastname: {
+    type: String,
+    required: [true, "Lastname is Required"],
   },
 });
 
