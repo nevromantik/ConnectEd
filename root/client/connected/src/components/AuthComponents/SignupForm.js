@@ -4,13 +4,14 @@ import Input from "./Input";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import axios from "axios"
+import axios from "axios";
 function SignupForm() {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [lastname, setLastname] = useState("");
+  const [role, setSelectedRole] = useState("");
+  const [license, setLicense] = useState("");
 
   const navigate = useNavigate();
 
@@ -21,17 +22,25 @@ function SignupForm() {
         email: email,
         password: password,
         name: name,
-        lastname: lastname
+        lastname: lastname,
+        role: role,
+        license: role === "admin" ? license : null
       })
       .then(function (response) {
         console.log(response);
-        if (response.data.created === true) navigate("/");
+        //if (response.data.created === true) navigate("/");
       })
       .catch(function (error) {
         console.log(error);
       });
   };
 
+  const handleSelectRole = (event) => {
+    const value = event.target.value;
+
+    setSelectedRole(value);
+
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -43,6 +52,19 @@ function SignupForm() {
       <Input type="text" id="name" getName={setName} />
       <label htmlFor="lastname">Cognome</label>
       <Input type="text" id="lastname" getLastname={setLastname} />
+      <div>
+        <label htmlFor="selectOption">Seleziona un ruolo:</label>
+        <select id="selectOption" value={role} onChange={handleSelectRole}>
+          <option value="">Seleziona ruolo</option>
+          <option value="studente">Studente</option>
+          <option value="genitore">Genitore</option>
+          <option value="admin">Scuola</option>
+          <option value="insegnante">Insegnante</option>
+        </select>
+      </div>
+      {role === "admin" ? (
+        <Input type="text" id="license" getLicense={setLicense} />
+      ) : null}
       <Button text="Iscriviti" />
     </form>
   );

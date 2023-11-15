@@ -37,8 +37,8 @@ const handleErrors = (err) => {
 
 module.exports.register = async (req, res, next) => {
   try {
-    const { email, password, name, lastname } = req.body;
-    const user = await User.create({ email, password, name, lastname});
+    const { email, password, name, lastname, role, license } = req.body;
+    const user = await User.create({ email, password, name, lastname, role, license});
     const token = createToken(user._id);
 
     res.cookie("jwt", token, {
@@ -47,7 +47,7 @@ module.exports.register = async (req, res, next) => {
       maxAge: maxAge * 1000,
     });
 
-    res.status(201).json({ user: user._id, created: true, name: user.name, lastname: user.lastname  });
+    res.status(201).json({ user: user._id, created: true, name: user.name, lastname: user.lastname, role: user.role, license: user.license ? user.license : null  });
   } catch (err) {
     console.log(err);
     const errors = handleErrors(err);

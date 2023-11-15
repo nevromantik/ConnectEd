@@ -1,6 +1,6 @@
 import React from "react";
 
-function Input({ type, id, getEmail, getPassword, getName, getLastname }) {
+function Input({ type, id, getEmail, getPassword, getName, getLastname, getLicense }) {
   let handleInput = null;
 
   switch (id) {
@@ -15,6 +15,9 @@ function Input({ type, id, getEmail, getPassword, getName, getLastname }) {
       break;
     case "lastname":
       handleInput = getLastname;
+      break;
+    case "license":
+      handleInput = getLicense;
       break;
 
     default:

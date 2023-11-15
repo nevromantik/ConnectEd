@@ -19,6 +19,14 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "Lastname is Required"],
   },
+  role: {
+    type: String,
+    required: [true, "Role is required"],
+  },
+  license: {
+    type: String,
+    required: [this.role === "admin" ? true : false, "License is required"],
+  },
 });
 
 userSchema.pre("save", async function (next) {
