@@ -21,11 +21,11 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    required: [true, "Role is required"],
+    required: [false, "Role is required"],
   },
   license: {
     type: String,
-    required: [this.role === "admin" ? true : false, "License is required"],
+    required: false,
   },
 });
 
@@ -41,10 +41,10 @@ userSchema.statics.login = async function (email, password) {
     const auth = await bcrypt.compare(password, user.password);
     if (auth) {
       return user;
+    } else  {
+      throw Error("incorrect password or email");
     }
-    throw Error("incorrect password");
   }
-  throw Error("incorrect email");
 };
 
 module.exports = mongoose.model("users", userSchema);

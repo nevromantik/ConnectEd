@@ -11,7 +11,6 @@ function SignupForm() {
   const [name, setName] = useState("");
   const [lastname, setLastname] = useState("");
   const [role, setSelectedRole] = useState("");
-  const [license, setLicense] = useState("");
 
   const navigate = useNavigate();
 
@@ -23,8 +22,8 @@ function SignupForm() {
         password: password,
         name: name,
         lastname: lastname,
-        role: role,
-        license: role === "admin" ? license : null
+        role: "admin",
+        
       })
       .then(function (response) {
         console.log(response);
@@ -52,19 +51,8 @@ function SignupForm() {
       <Input type="text" id="name" getName={setName} />
       <label htmlFor="lastname">Cognome</label>
       <Input type="text" id="lastname" getLastname={setLastname} />
-      <div>
-        <label htmlFor="selectOption">Seleziona un ruolo:</label>
-        <select id="selectOption" value={role} onChange={handleSelectRole}>
-          <option value="">Seleziona ruolo</option>
-          <option value="studente">Studente</option>
-          <option value="genitore">Genitore</option>
-          <option value="admin">Scuola</option>
-          <option value="insegnante">Insegnante</option>
-        </select>
-      </div>
-      {role === "admin" ? (
-        <Input type="text" id="license" getLicense={setLicense} />
-      ) : null}
+      
+     
       <Button text="Iscriviti" />
     </form>
   );
